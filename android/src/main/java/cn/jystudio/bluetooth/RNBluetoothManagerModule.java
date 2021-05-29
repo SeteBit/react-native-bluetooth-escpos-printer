@@ -28,11 +28,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
 /**
  * Created by januslo on 2018/9/22.
  */
-public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
-        implements ActivityEventListener, BluetoothServiceStateObserver {
+public class RNBluetoothManagerModule extends ReactContextBaseJavaModule implements ActivityEventListener, BluetoothServiceStateObserver {
 
     private static final String TAG = "BluetoothManager";
     private final ReactApplicationContext reactContext;
@@ -177,8 +177,8 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
             cancelDisCovery();
             int permissionChecked = ContextCompat.checkSelfPermission(reactContext, android.Manifest.permission.ACCESS_COARSE_LOCATION);
             if (permissionChecked == PackageManager.PERMISSION_DENIED) {
-                // // TODO: 2018/9/21
-                ActivityCompat.requestPermissions(reactContext.getCurrentActivity(),
+                // TODO: 2021/5/29 by Ari
+                ActivityCompat.requestPermissions(getCurrentActivity(),
                         new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
                         1);
             }
@@ -323,7 +323,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
 
 
     @Override
-    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         BluetoothAdapter adapter = this.getBluetoothAdapter();
         Log.d(TAG, "onActivityResult " + resultCode);
         switch (requestCode) {
@@ -378,10 +378,6 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
         }
     }
 
-    @Override
-    public void onNewIntent(Intent intent) {
-
-    }
 
     @Override
     public String getName() {
@@ -507,4 +503,6 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                 break;
         }
     }
+
+
 }
