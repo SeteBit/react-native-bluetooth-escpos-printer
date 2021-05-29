@@ -90,6 +90,10 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule impleme
     }
 
     @Override
+    public void onNewIntent(Intent intent){
+    }
+
+    @Override
     public
     @Nullable
     Map<String, Object> getConstants() {
@@ -179,7 +183,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule impleme
             int permissionChecked = ContextCompat.checkSelfPermission(reactContext, android.Manifest.permission.ACCESS_COARSE_LOCATION);
             if (permissionChecked == PackageManager.PERMISSION_DENIED) {
                 // TODO: 2021/5/29 by Ari
-                ActivityCompat.requestPermissions(getCurrentActivity(),
+                ActivityCompat.requestPermissions(reactContext.getCurrentActivity(),
                         new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
                         1);
             }
@@ -324,7 +328,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule impleme
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
         BluetoothAdapter adapter = this.getBluetoothAdapter();
         Log.d(TAG, "onActivityResult " + resultCode);
         switch (requestCode) {
